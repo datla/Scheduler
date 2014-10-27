@@ -10,5 +10,3 @@ Below options were considered while solving the problem.
 2. Acquring resource permit in Task execution handler before method, issue with this approach is thread interleaving can cause issues and in certain cases message consumer (queue polling thread) can submit more messages (than it can process) to executor service and this will have some undesired effect on the oder in which messages are processed. So, have to consider acquiring resource permit before submitting it to executor service (either by message client or queue consumer) and relesing permit happens in the Callable Task finally block
 3. Uncompleted task, which is terminating messages that belong to a particular group and raising an error can be implemented by writing TerminationPolicy by implementing isTerminated(Message message) and registering it with MessageClient so that if a message is terminated it can throw an exception. It is some what similar to Cancellation policy  
 
-
-Lot of other alternate approaches were considered while solving the task, but unfortunately it's bit difficult to convey it in documenation, I would prefer to discuss it over a telephonic conversation.
